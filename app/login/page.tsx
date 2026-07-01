@@ -47,8 +47,6 @@ export default function LoginPage() {
         setErrors(result.errors ?? {});
         return;
       }
-      console.log(result.data);
-
       if (!response.ok) {
         alert(result.message ?? "Invalid login details");
         return;
@@ -58,7 +56,6 @@ export default function LoginPage() {
 
       router.push("/todos");
     } catch (error) {
-      console.error(error);
       alert("Login failed");
     } finally {
       setLoading(false);

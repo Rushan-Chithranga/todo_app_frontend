@@ -84,13 +84,11 @@ export default function TodoPage() {
       }
 
       const result: LaravelPaginatedResponse = await response.json();
-console.log("todo data==========",result.data);
       setTodos(result.data);
       setPage(result.current_page);
       setLastPage(result.last_page);
       setTotal(result.total);
     } catch (error) {
-      console.error(error);
       alert("Failed to load Todos");
     } finally {
       setLoading(false);
@@ -195,7 +193,6 @@ console.log("todo data==========",result.data);
       closeModals();
       await loadTodos(isEditMode ? page : 1);
     } catch (error) {
-      console.error(error);
       alert("Failed to save todo");
     } finally {
       setSaving(false);
@@ -283,7 +280,6 @@ console.log("todo data==========",result.data);
 
         await loadTodos(1);
       } catch (error) {
-        console.error(error);
         clearAuth();
         router.push("/login");
       }
