@@ -235,6 +235,39 @@ export default function TodoPage() {
     }
   }
 
+  async function changeStatus(todo: Todos, status: boolean) {
+    try {
+      const response = await fetch(`${API_URL}/todos/${todo.id}/toggle`, {
+        method: "PATCH",
+        headers: {
+          ...authHeaders(),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...todo, is_completed: status}),
+      });
+
+      if (response.status === 401) {
+        clearAuth();
+        router.push("/login");
+        return;
+      }
+
+      if (response.status === 403) {
+        alert("You are not authorized to update this todo.");
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error("Failed to update todo");
+      }
+
+      await loadTodos(page);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to update todo");
+    }
+  }
+
   async function handleLogout() {
     try {
       await fetch(`${API_URL}/logout`, {
@@ -347,10 +380,11 @@ export default function TodoPage() {
             <table className="w-full border-collapse text-left text-sm">
               <thead className="bg-slate-900 text-white">
                 <tr>
-                  <th className="px-4 py-3">Titel</th>
+                  <th className="px-4 py-3">Title</th>
                   <th className="px-4 py-3">Description</th>
-                  <th className="px-4 py-3">Creater</th>
+                  <th className="px-4 py-3">Creator</th>
                   <th className="px-4 py-3">Status</th>
+                  <th className="px-4 py-3"></th>
                   <th className="px-4 py-3 text-right">Actions</th>
                 </tr>
               </thead>
@@ -400,6 +434,23 @@ export default function TodoPage() {
                                 </span>
                         ) : (
                             "-"
+                        )}
+                        </td>
+                        <td className="px-4 py-3 text-slate-700">
+                        {todo.is_completed === 0 ? (
+                            <button
+                              onClick={() => changeStatus(todo, true)}
+                              className="rounded-md bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-700 hover:bg-amber-200"
+                            >
+                              Mark as Completed
+                            </button>
+                        ) : (
+                            <button
+                              onClick={() => changeStatus(todo, false)}
+                              className="rounded-md bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-200"
+                            >
+                              Mark as Pending
+                            </button>
                         )}
                         </td>
                       <td className="px-4 py-3">
