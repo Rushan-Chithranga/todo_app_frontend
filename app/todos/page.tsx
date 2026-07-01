@@ -337,7 +337,7 @@ export default function TodoPage() {
 
           <button
             onClick={openCreateModal}
-            className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-blue-700"
+            className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-blue-700 cursor-pointer"
           >
             + Create Todos
           </button>
@@ -358,7 +358,7 @@ export default function TodoPage() {
 
             <button
               onClick={() => loadTodos(1)}
-              className="rounded-lg bg-slate-900 px-5 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+              className="rounded-lg bg-slate-900 px-5 py-2 text-sm font-semibold text-white hover:bg-slate-800 cursor-pointer"
             >
               Search
             </button>
@@ -368,7 +368,7 @@ export default function TodoPage() {
                 setSearch("");
                 setTimeout(() => loadTodos(1), 0);
               }}
-              className="rounded-lg border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              className="rounded-lg border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 cursor-pointer"
             >
               Reset
             </button>
@@ -429,7 +429,7 @@ export default function TodoPage() {
                             Pending
                             </span>
                         ) : todo.is_completed === 1 ? (
-                                <span className="rounded-md bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-700 hover:bg-amber-200">
+                                <span className="rounded-md bg-green-100 px-3 py-1.5 text-xs font-semibold text-green-700 hover:bg-green-200">
                                 Completed
                                 </span>
                         ) : (
@@ -440,14 +440,14 @@ export default function TodoPage() {
                         {todo.is_completed === 0 ? (
                             <button
                               onClick={() => changeStatus(todo, true)}
-                              className="rounded-md bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-700 hover:bg-amber-200"
+                              className="rounded-md bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-200 cursor-pointer"
                             >
                               Mark as Completed
                             </button>
                         ) : (
                             <button
                               onClick={() => changeStatus(todo, false)}
-                              className="rounded-md bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-200"
+                              className="rounded-md bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-200 cursor-pointer"
                             >
                               Mark as Pending
                             </button>
