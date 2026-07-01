@@ -9,7 +9,8 @@ type Todos = {
   id: number;
   title: string;
   description: string | null;
-  creater: string | null;
+  user_name: string | null;
+  is_completed: any;
 };
 
 type LaravelPaginatedResponse = {
@@ -292,6 +293,8 @@ console.log("todo data==========",result.data);
 
   }, []);
 
+ 
+
   return (
     <main className="min-h-screen bg-slate-100">
       <Navbar user={authUser} onLogout={handleLogout} />
@@ -351,6 +354,7 @@ console.log("todo data==========",result.data);
                   <th className="px-4 py-3">Titel</th>
                   <th className="px-4 py-3">Description</th>
                   <th className="px-4 py-3">Creater</th>
+                  <th className="px-4 py-3">Status</th>
                   <th className="px-4 py-3 text-right">Actions</th>
                 </tr>
               </thead>
@@ -387,8 +391,21 @@ console.log("todo data==========",result.data);
                         {todo.description || "-"}
                       </td>
                       <td className="px-4 py-3 text-slate-700">
-                        {todo.creater || "-"}
+                        {todo.user_name || "-"}
                       </td>
+                        <td className="px-4 py-3 text-slate-700">
+                        {todo.is_completed === 0 ? (
+                            <span className="rounded-md bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-700 hover:bg-amber-200">
+                            Pending
+                            </span>
+                        ) : todo.is_completed === 1 ? (
+                                <span className="rounded-md bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-700 hover:bg-amber-200">
+                                Completed
+                                </span>
+                        ) : (
+                            "-"
+                        )}
+                        </td>
                       <td className="px-4 py-3">
                         <div className="flex justify-end gap-2">
                           <button

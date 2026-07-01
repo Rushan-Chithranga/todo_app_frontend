@@ -60,7 +60,7 @@ export default function RegisterPage() {
 
       saveAuth(result.token, result.data);
 
-      router.push("/todos");
+      router.push("/login");
     } catch (error) {
       console.error(error);
       alert("Registration failed");
